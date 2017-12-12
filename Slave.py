@@ -19,8 +19,7 @@ def compute_complexity(source):
     # get cc blocks
     blocks = cc_visit(source)
     # get MI score
-    mi = mi_visit(source, True)
-
+    #mi = mi_visit(source, True)
     for func in blocks:
         result.append(func.name+"- CC Rank:"+cc_rank(func.complexity))
     return result
@@ -71,8 +70,9 @@ def do_work(work):
 
 # post results to the url 
 def send_results(result):
-    #result = {'Result' : result}
-    post = requests.post('http://127.0.0.1:5000/results', json=result)
+    requests.post('http://127.0.0.1:5000/results', json=result,  params={'key': 'value'})
+    response = requests.get('http://127.0.0.1:5000/results',  params={'key': 'value'})
+    return response
 
 if __name__ == '__main__':
     bool = True
@@ -89,11 +89,13 @@ if __name__ == '__main__':
         except:
             bool = False
             print("Process Terminated")
-            shutdown = {'shutdown': 'shutdown'}
-            #post = requests.post('http://127.0.0.1:5000/shutdown', json=shutdown)
     report = {'Result': result_list, 'executiontime': executiontime_list}
-    send_results(report)
-    print(report)
+    response = send_results(report)
+    message = response.json()
+    print("complexity_score", message['complexity_score'])
+    print("execution_time", message['execution_time'])
+    #requests.get('http://127.0.0.1:5000/shutdown', params={'key': 'value'})
+    # Run URL "http://127.0.0.1:5000/shutdown" in any browser to stop Flask APP
 
 
 
