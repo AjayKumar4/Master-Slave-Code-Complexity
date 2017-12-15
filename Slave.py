@@ -3,15 +3,9 @@ from radon.complexity import cc_visit, cc_rank
 from pygit2 import Repository, clone_repository
 import requests, json
 from time import time
+from gitrepo import set_repo, get_commits
 
-def set_repo():
-    try:
-        repo = Repository('./repo')
-    except:
-        repo_url = 'https://github.com/AjayKumar4/Client-Server.git'
-        repo_path = './repo'
-        repo = clone_repository(repo_url, repo_path)
-    return repo
+
 
 # computes the complexity of all .py files in the given list
 def compute_complexity(source):
@@ -60,15 +54,17 @@ def get_work(repo):
         files = extract_files(sources)
         return files, id, executiontime
 
-
 # compute the complexity of each file in the given list
 def do_work(work):
     results = []
     for file in work:
-        results.append(compute_complexity(file))
+        try:
+            results.append(compute_complexity(file))
+        except:
+            results.append('')
     return results
 
-# post results to the url 
+# post results to the url
 def send_results(result):
     requests.post('http://127.0.0.1:5000/results', json=result,  params={'key': 'value'})
     response = requests.get('http://127.0.0.1:5000/results',  params={'key': 'value'})
@@ -78,9 +74,12 @@ if __name__ == '__main__':
     bool = True
     executiontime_list = []
     result_list = []
+    id = 0
     while bool: #run until work is finished
         repo = set_repo()
+        commits = get_commits(repo)
         try:
+            #while id < len(commits):
             work, id, executiontime = get_work(repo)
             print(id)
             result = do_work(work)
@@ -96,6 +95,5 @@ if __name__ == '__main__':
     print("execution_time", message['execution_time'])
     #requests.get('http://127.0.0.1:5000/shutdown', params={'key': 'value'})
     # Run URL "http://127.0.0.1:5000/shutdown" in any browser to stop Flask APP
-
 
 

@@ -1,25 +1,10 @@
 from flask import Flask, request, jsonify
 from time import time
 from pygit2 import Repository, clone_repository
+from gitrepo import set_repo, get_commits
 
 app = Flask(__name__)
 
-# pulls repo from url and stores clone
-def set_repo():
-    try:
-        repo = Repository('./repo')
-    except:
-        repo_url = 'https://github.com/AjayKumar4/Client-Server.git'
-        repo_path = './repo'
-        repo = clone_repository(repo_url, repo_path)
-    return repo
-
-# walk through commits in the given repo and store in list
-def get_commits(repo):
-    commits = []
-    for commit in repo.walk(repo.head.target):
-        commits.append(repo.get(commit.id))
-    return commits
 
 # give work to any worker who access the url
 @app.route('/work' , methods=['GET'])
