@@ -3,10 +3,10 @@ from pygit2 import Repository, clone_repository
 # pulls repo from url and stores clone
 def set_repo():
     try:
-        repo = Repository('/home/aj/Workspace/Master-Slave-Code-Complexity/radon')
+        repo = Repository('/home/aj/Workspace/Master-Slave-Code-Complexity/httpie')
     except:
         repo_url = 'https://github.com/jakubroztocil/httpie.git'
-        repo_path = '/home/aj/Workspace/Master-Slave-Code-Complexity/radon'
+        repo_path = '/home/aj/Workspace/Master-Slave-Code-Complexity/httpie'
         repo = clone_repository(repo_url, repo_path)
     return repo
 

@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 
 # give work to any worker who access the url
-@app.route('/work' , methods=['GET'])
+@app.route('/work', methods=['GET'])
 def give_work():
     repo = set_repo()
     commits = get_commits(repo)
