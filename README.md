@@ -22,6 +22,7 @@ python ./slave.py
 Once the Master has distributed the work, It is needs to be restarted in order to give any new Slave additional work, as such each time the Slave(s) complete their processes, the time taken for each task by slave to complete the task was logged by the code and POST in Browser using URL(http://127.0.0.1:5000/results) along with List of cyclomatic complexities Results
 for each .py file in the commit in Provided Git Repository
 
+![alt text](https://github.com/AjayKumar4/Master-Slave-Code-Complexity/blob/master/execution_graph.png)
 
 The above graph indicating computation time for the given No of workers(Slave) was made before finalising them and fixing the POST request of sending the results back to the Master. Although as the POST request would take an equal amount of time for each slave, it would only scale the results and not alter their ratios.
 To stop Flask APP Server use below URL in any Browser
