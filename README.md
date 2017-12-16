@@ -15,9 +15,9 @@ To run Master-Slave-Code-Complexity code, start the Master, flask app starts and
 
 To execute from the command line run these commands:
 
-python ./master.py
+python ./Master.py
 
-python ./slave.py
+python ./Slave.py
 
 Once the Master has distributed the work, It is needs to be restarted in order to give any new Slave additional work, as such each time the Slave(s) complete their processes, the time taken for each task by slave to complete the task was logged by the code and POST in Browser using URL(http://127.0.0.1:5000/results) along with List of cyclomatic complexities Results
 for each .py file in the commit in Provided Git Repository
